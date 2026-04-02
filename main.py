@@ -46,3 +46,26 @@ elif media_cor > 0.5:
 else:
     print("Neutro para cor")
 
+def prever_alimento(alimento):
+    score = (
+        alimento["cor"] * 0.2 +
+        alimento["cheiro"] * 0.1 +
+        alimento["sabor"] * 0.3 +
+        alimento["temperatura"] * 0.1 +
+        alimento["textura"] * 0.3
+    )
+
+    if score > 0:
+        return "👍 Provável que goste"
+    elif score < 0:
+        return "👎 Provável que não goste"
+    else:
+        return "😐 Neutro"
+
+
+# testar alimentos
+brocolis = {"cor": -1, "cheiro": -1, "sabor": -1, "temperatura": 1, "textura": 0}
+banana = {"cor": 1, "cheiro": 1, "sabor": 1, "temperatura": 0, "textura": 1}
+
+print("\n🥦 Brócolis:", prever_alimento(brocolis))
+print("🍌 Banana:", prever_alimento(banana))
