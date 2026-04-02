@@ -33,11 +33,7 @@ print(y)
 
 
 # analise simples
-media_cor = sum([item[0] for item in X]) / len(X)
-media_cheiro = sum([item[1] for item in X]) / len(X)
-media_sabor = sum([item[2] for item in X]) / len(X)
-media_temperatura = sum([item[3] for item in X]) / len(X)
-media_textura = sum([item[4] for item in X]) / len(X)
+media_cor = sum([item["cor"] for item in dados]) / len(dados)
 
 print("\n Média de cor: ", media_cor)
 
@@ -77,7 +73,9 @@ print("🍌 Banana:", prever_alimento(banana))
 print("Treinando o modelo...")
 
 # dividir entre treino e teste
-X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2)
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # criar o modelo
 modelo = LogisticRegression()
