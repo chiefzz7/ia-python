@@ -1,0 +1,42 @@
+[
+    {
+        "cor": -1,
+        "cheiro": 0,
+        "sabor": 1,
+        "temperatura": 0,
+        "textura": 1,
+        "gostou": 1
+    },
+    {
+        "cor": -1,
+        "cheiro": -1,
+        "sabor": 0,
+        "temperatura": 1,
+        "textura": -1,
+        "gostou": -1
+    },
+    {
+        "cor": 1,
+        "cheiro": 1,
+        "sabor": 1,
+        "temperatura": 0,
+        "textura": 1,
+        "gostou": 1
+    },
+    {
+        "cor": 0,
+        "cheiro": 0,
+        "sabor": 0,
+        "temperatura": 0,
+        "textura": 0,
+        "gostou": 0
+    },
+    {
+        "cor": -1,
+        "cheiro": 0,
+        "sabor": -1,
+        "temperatura": 1,
+        "textura": -1,
+        "gostou": -1
+    }
+]
