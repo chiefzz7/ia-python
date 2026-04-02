@@ -1,4 +1,6 @@
 import json
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 # carregar os dados
 with open("dados.json") as f:
@@ -69,3 +71,22 @@ banana = {"cor": 1, "cheiro": 1, "sabor": 1, "temperatura": 0, "textura": 1}
 
 print("\n🥦 Brócolis:", prever_alimento(brocolis))
 print("🍌 Banana:", prever_alimento(banana))
+
+
+# treinando a IA de fato
+print("Treinando o modelo...")
+
+# dividir entre treino e teste
+X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2)
+
+# criar o modelo
+modelo = LogisticRegression()
+
+# treinar
+modelo.fit(X_treino, y_treino)
+
+# avaliar
+acuracia = modelo.score(X_teste, y_teste)
+print(f"Acurácia do modelo: {acuracia:.2f}")
+
+
