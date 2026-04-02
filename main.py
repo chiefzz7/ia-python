@@ -1,16 +1,21 @@
 import json
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
 
-# carregar os dados
+from logica import prever_heuristica
+from modelo import treinar_modelo, prever_modelo
+
+# ========================
+# 📊 CARREGAR DADOS
+# ========================
 with open("dados.json") as f:
     dados = json.load(f)
 
-
-print("Dados carregados:")
+print("📊 Dados carregados:")
 print(dados)
 
-# separar os dados
+# ========================
+# 🧠 SEPARAR X e y
+# ========================
 X = []
 y = []
 
@@ -24,67 +29,47 @@ for item in dados:
     ])
     y.append(item["gostou"])
 
-
-print("\n Entradas (X):")
-print(X)
-
-print("\n Saídas (y):")
-print(y)
-
-
-# analise simples
+# ========================
+# 📈 ANÁLISE SIMPLES
+# ========================
 media_cor = sum([item["cor"] for item in dados]) / len(dados)
 
-print("\n Média de cor: ", media_cor)
+print("\n📈 Média de cor:", media_cor)
 
 if media_cor < -0.5:
-    print("Forte rejeicão por cor")
+    print("🚫 Forte rejeição por cor")
 elif media_cor > 0.5:
-    print("Boa aceitacao por cor")
+    print("✅ Boa aceitação por cor")
 else:
-    print("Neutro para cor")
+    print("😐 Neutro para cor")
 
-def prever_alimento(alimento):
-    score = (
-        alimento["cor"] * 0.2 +
-        alimento["cheiro"] * 0.1 +
-        alimento["sabor"] * 0.3 +
-        alimento["temperatura"] * 0.1 +
-        alimento["textura"] * 0.3
-    )
-
-    if score > 0:
-        return "👍 Provável que goste"
-    elif score < 0:
-        return "👎 Provável que não goste"
-    else:
-        return "😐 Neutro"
-
-
-# testar alimentos
+# ========================
+# 🧪 TESTE HEURÍSTICA
+# ========================
 brocolis = {"cor": -1, "cheiro": -1, "sabor": -1, "temperatura": 1, "textura": 0}
 banana = {"cor": 1, "cheiro": 1, "sabor": 1, "temperatura": 0, "textura": 1}
 
-print("\n🥦 Brócolis:", prever_alimento(brocolis))
-print("🍌 Banana:", prever_alimento(banana))
+print("\n🧪 HEURÍSTICA:")
+print("🥦 Brócolis:", prever_heuristica(brocolis))
+print("🍌 Banana:", prever_heuristica(banana))
 
+# ========================
+# 🤖 TREINAR IA
+# ========================
+print("\n🤖 Treinando modelo...")
 
-# treinando a IA de fato
-print("Treinando o modelo...")
-
-# dividir entre treino e teste
 X_treino, X_teste, y_treino, y_teste = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# criar o modelo
-modelo = LogisticRegression()
+modelo = treinar_modelo(X_treino, y_treino)
 
-# treinar
-modelo.fit(X_treino, y_treino)
-
-# avaliar
 acuracia = modelo.score(X_teste, y_teste)
-print(f"Acurácia do modelo: {acuracia:.2f}")
+print(f"🎯 Acurácia: {acuracia:.2f}")
 
-
+# ========================
+# 🔮 TESTE IA
+# ========================
+print("\n🔮 IA:")
+print("🥦 Brócolis:", prever_modelo(modelo, brocolis))
+print("🍌 Banana:", prever_modelo(modelo, banana))
